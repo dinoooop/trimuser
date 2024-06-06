@@ -8,6 +8,12 @@ import { unwrapResult } from '@reduxjs/toolkit'
 import { bc } from '../../helpers/bc'
 import { sv } from '../../helpers/sv'
 import useUserStore from './useUserStore'
+import InputField from '../../formc/InputField'
+import InputFileMulti from '../../formc/InputFileMulti'
+import InputFile from '../../formc/InputFile'
+import Checkbox from '../../formc/Checkbox'
+import Radio from '../../formc/Radio'
+import Submit from '../../formc/Submit'
 
 export default function () {
 
@@ -16,18 +22,22 @@ export default function () {
     const { error, store, reset } = useUserStore()
     const [errors, setErrors] = useState({})
     const [formValues, setFormValues] = useState({
+        family: "family test",
         name: "test",
         email: "test@mail.com",
         roles: [sv.role("subscriber")],
         password: "welcome",
         status: sv.status("active"),
         avatar: '',
-        album: []
+        photo: '',
+        album: [],
+        previews: [],
     })
 
     useEffect(() => { reset() }, [reset])
 
     const onChangeForm = (e) => {
+        
         const validated = vr.validate(e, validateForm, formValues)
         setFormValues(prev => ({ ...prev, ...validated.formValues }))
         setErrors(prev => ({ ...prev, ...validated.error }))
@@ -63,122 +73,15 @@ export default function () {
 
                         {error && <p className='red-alert'>{error}</p>}
 
-                        <div className="form-group">
-                            <label>Album</label>
-                            <label htmlFor="album"><i className="fas fa-file icon"></i></label>
+                        <InputFileMulti name="album" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
+                        <InputFile name="photo" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
+                        <InputField name="name" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
+                        <InputField name="email" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
+                        <InputField name="password" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
+                        <Checkbox name="role" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
+                        <Radio name="status" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
+                        <Submit cto="/admin/users" />
 
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                id="album"
-                                name="album"
-                                onChange={onChangeForm}
-                                placeholder="test"
-                                multiple={true}
-                            />
-                            <div className="uploaded-images">
-                                {
-                                    formValues.album_urls &&
-                                    formValues.album_urls.map((album_url, index) => (
-                                        <img key={index} src={album_url} alt="album Preview" />
-                                    ))
-                                }
-                            </div>
-                            <div className="color-red">{errors?.album}</div>
-                        </div>
-
-
-                        <div className="form-group">
-                            <label>Avatar</label>
-                            <label htmlFor="avatar"><i className="fas fa-file icon"></i></label>
-
-                            <input
-                                type="file"
-                                ref={fileInputRef}
-                                id="avatar"
-                                name="avatar"
-                                onChange={onChangeForm}
-                                placeholder="test"
-                            />
-                            <div className="uploaded-images">
-                                {formValues.avatar_url && <img src={formValues.avatar_url} alt="Avatar Preview" />}
-                            </div>
-                            <div className="color-red">{errors?.avatar}</div>
-                        </div>
-
-
-                        <div className="form-group">
-                            <label htmlFor="name">Name</label>
-                            <input type="text"
-                                className="form-control input-field"
-                                id="name"
-                                value={formValues.name || ''}
-                                name="name"
-                                onChange={onChangeForm}
-                            />
-                            <div className="color-red">{errors?.name}</div>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email">Email</label>
-                            <input type="text"
-                                className="form-control input-field"
-                                id="email"
-                                value={formValues.email || ''}
-                                name="email"
-                                onChange={onChangeForm}
-                            />
-                            <div className="color-red">{errors?.email}</div>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="password">Password</label>
-                            <input type="password"
-                                className="form-control input-field"
-                                id="password"
-                                value={formValues.password}
-                                name="password"
-                                onChange={onChangeForm}
-                            />
-                            <div className="color-red">{errors?.password}</div>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="role">Role</label>
-                            {
-                                sv.role().map(role => (
-                                    <label className='checkbox-control' key={role.key}>
-                                        <input type="checkbox"
-                                            value={role.id}
-                                            name="roles"
-                                            onChange={onChangeForm}
-                                            checked={formValues.roles.includes(role.id)}
-                                        /> {role.name}
-                                    </label>
-                                ))
-                            }
-                            <div className="color-red">{errors?.role}</div>
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="status">Status</label>
-                            {
-                                sv.status().map(mapitem => (
-                                    <label className='radio-control' key={mapitem.key}>
-                                        <input type="radio"
-                                            value={mapitem.id}
-                                            name="status"
-                                            onChange={onChangeForm}
-                                            checked={formValues.status == mapitem.id || ''}
-                                        /> {mapitem.name}
-                                    </label>
-                                ))
-                            }
-                            <div className="color-red">{errors?.status}</div>
-                        </div>
-
-
-                        <button type='submit' className="btn submit">Submit</button>
-                        <Link to="/admin/users" className="btn">Cancel</Link>
                     </form>
 
                 </div>

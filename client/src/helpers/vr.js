@@ -8,7 +8,7 @@ export class vr {
 		
 
 		const { name, value, type, checked, files, options, multiple } = e.target;
-
+		
 		if (type == "select" && multiple) {
 			// Handle multi-select change
 			const selectedValues = [];
@@ -43,9 +43,7 @@ export class vr {
 
 		} else if (type === 'file') {
 
-			console.log("file upload");
 			if (multiple) {
-				console.log("file upload multi");
 				const filesArray = Array.from(files)
 				const fileUrls = []
 				filesArray.map(file => {
@@ -60,7 +58,7 @@ export class vr {
 			const file = files[0]
 			const error = validateForm(name, file)
 
-			if(name === 'avatar'){
+			if(name === 'avatar' || name === 'photo'){
 				const fileUrl = URL.createObjectURL(file);
 
 				return {

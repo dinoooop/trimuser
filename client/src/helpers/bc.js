@@ -1,4 +1,5 @@
 import store from '../store'
+import { sv } from './sv'
 
 // Basic functions
 export class bc {
@@ -36,6 +37,26 @@ export class bc {
   static pluckIds(arr) {
     if (!arr) { return [] }
     return arr.map(obj => obj.id)
+  }
+
+  static getLabel(name) {
+    let parts = name.split('_');
+    parts[0] = parts[0].charAt(0).toUpperCase() + parts[0].slice(1);
+    return parts.join(' ');
+  }
+
+  static getOptions(optionType) {
+
+    switch (optionType) {
+      case "role":
+        return sv.role()
+      case "hobbies":
+        return []
+      case "status":
+        return sv.status()
+      default:
+        return []
+    }
   }
 
 }
