@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/trimuser/static/css/main.d73b8e6e.css",
+    "main.js": "/trimuser/static/js/main.8021cbb7.js",
+    "static/js/453.7b7a6ae4.chunk.js": "/trimuser/static/js/453.7b7a6ae4.chunk.js",
+    "static/media/header.jpg": "/trimuser/static/media/header.06d6d39a131a3f5c73e1.jpg",
+    "index.html": "/trimuser/index.html",
+    "main.d73b8e6e.css.map": "/trimuser/static/css/main.d73b8e6e.css.map",
+    "main.8021cbb7.js.map": "/trimuser/static/js/main.8021cbb7.js.map",
+    "453.7b7a6ae4.chunk.js.map": "/trimuser/static/js/453.7b7a6ae4.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d73b8e6e.css",
+    "static/js/main.8021cbb7.js"
+  ]
+}
