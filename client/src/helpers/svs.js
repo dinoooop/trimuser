@@ -11,7 +11,6 @@ export class svs {
             return this.getItemById(needle, haystack, 'name');
         }
 
-        // return label value itself
         return haystack;
     }
 

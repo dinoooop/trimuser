@@ -7,6 +7,58 @@ use App\Helpers\Comcal\Comcal;
 class Mixi
 {
 
+    public static function propReturn($param = null, $data = null)
+    {
+        if (isset($data[0]['id'])) {
+            if (is_numeric($param)) {
+                $index = array_search($param, array_column($data, 'id'));
+
+                if ($index === false) {
+                    exit("Index not found");
+                }
+
+                return $data[$index]['key'];
+            } elseif (is_string($param)) {
+                $index = array_search($param, array_column($data, 'key'));
+
+                if ($index === false) {
+                    exit("Index not found");
+                }
+
+                return $data[$index]['id'];
+            } else {
+                return $data;
+            }
+        }
+
+        if (is_numeric($param)) {
+            return $data[$param];
+        } elseif (is_string($param)) {
+            return array_search($param, $data);
+        } else {
+            return self::setKeyNameId($data);
+        }
+    }
+
+    public static function setKeyNameId($data)
+    {
+        $result = [];
+        foreach ($data as $key => $value) {
+
+            if (isset($value['name'])) {
+                return $data;
+            }
+
+            $row = [];
+            $row['key'] = $value; // for code purpose
+            $ucfirst = ucfirst($value);
+            $row['name'] = str_replace('_', ' ', $ucfirst); // For display
+            $row['id'] = $key;
+            $result[] = $row;
+        }
+        return $result;
+    }
+
     public static function status($context = null)
     {
         switch ($context) {

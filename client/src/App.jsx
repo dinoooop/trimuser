@@ -1,6 +1,7 @@
 import "./styles/grid.css";
 import "./styles/responsive.css";
 import "./styles/admin.css";
+import "./styles/modal.scss";
 import "./styles/front.scss";
 import "./styles/front-responsive.scss";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";

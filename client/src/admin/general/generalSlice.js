@@ -20,9 +20,9 @@ export const flush = createAsyncThunk('general/flush', async (data = {}) => {
     }
 });
 
-export const getStock = createAsyncThunk('general/stock', async () => {
+export const getStock = createAsyncThunk('select-regular', async () => {
     try {
-        const response = await axios.get(`${config.api}/general/stock`, config.header());
+        const response = await axios.get(`${config.api}/select-regular`, config.header());
         return response.data;
     } catch (error) {
         throw error.response.data.message

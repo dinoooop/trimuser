@@ -14,6 +14,8 @@ import InputFile from '../../formc/InputFile'
 import Checkbox from '../../formc/Checkbox'
 import Radio from '../../formc/Radio'
 import Submit from '../../formc/Submit'
+import MultiSelect from '../../formc/MultiSelect'
+import MultiSelectAuto from '../../formc/MultiSelectAuto'
 
 export default function () {
 
@@ -22,8 +24,7 @@ export default function () {
     const { error, store, reset } = useUserStore()
     const [errors, setErrors] = useState({})
     const [formValues, setFormValues] = useState({
-        family: "family test",
-        name: "test",
+        name: "test 2",
         email: "test@mail.com",
         roles: [sv.role("subscriber")],
         password: "welcome",
@@ -32,12 +33,12 @@ export default function () {
         photo: '',
         album: [],
         previews: [],
+        country: [1, 2, 103]
     })
 
     useEffect(() => { reset() }, [reset])
 
     const onChangeForm = (e) => {
-        
         const validated = vr.validate(e, validateForm, formValues)
         setFormValues(prev => ({ ...prev, ...validated.formValues }))
         setErrors(prev => ({ ...prev, ...validated.error }))
@@ -51,7 +52,6 @@ export default function () {
         } else {
             try {
                 const resultAction = await store(newFormData)
-
                 // unwrapResult(resultAction)
                 navigate('/admin/users')
             } catch (error) {
@@ -73,6 +73,7 @@ export default function () {
 
                         {error && <p className='red-alert'>{error}</p>}
 
+                        <MultiSelectAuto name="country" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
                         <InputFileMulti name="album" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
                         <InputFile name="photo" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />
                         <InputField name="name" formValues={formValues} errors={errors} onChangeForm={onChangeForm} />

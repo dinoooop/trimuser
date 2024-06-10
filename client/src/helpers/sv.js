@@ -5,13 +5,13 @@ import { svs } from './svs'
 export class sv {
 
   static role(needle = null) {
-    const roles = store.getState().general.stock?.roles || []
-    return svs.getRetrun(needle, roles)
+    const data = store.getState().general.stock?.roles || []
+    return svs.getRetrun(needle, data)
   }
 
   static status(needle = null) {
-    const roles = store.getState().general.stock?.status || []
-    return svs.getRetrun(needle, roles)
+    const data = store.getState().general.stock?.status || []
+    return svs.getRetrun(needle, data)
   }
 
 }

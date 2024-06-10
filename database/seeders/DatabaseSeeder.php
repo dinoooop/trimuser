@@ -4,13 +4,17 @@ namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
+use App\Models\Country;
 use App\Models\Module;
 use App\Models\Project;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,6 +25,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
         // Module::factory(10)->create();
         Role::create(['name' => 'admin', 'key' => 'admin']);
         Role::create(['name' => 'subscriber', 'key' => 'subscriber']);
@@ -44,5 +49,17 @@ class DatabaseSeeder extends Seeder
 
         $user->roles()->attach(2);
 
+        // create countries
+        $filePath = 'data/countries.json';
+        $json = Storage::get($filePath);
+        $countries = json_decode($json, true);
+        foreach ($countries as $country) {
+            Country::create([
+                'name' => $country['name'],
+                'code' => $country['code'],
+            ]);
+        }
+
+        
     }
 }

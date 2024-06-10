@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\GeneralController;
 use App\Http\Controllers\ModuleController;
+use App\Http\Controllers\SelectController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
@@ -21,7 +22,6 @@ Route::post('/auth/login', [AuthController::class, 'login']);
 Route::post('/auth/register', [AuthController::class, 'register']);
 Route::post('/auth/forgot-password', [AuthController::class, 'forgotPassword']);
 Route::post('/auth/reset-password', [AuthController::class, 'resetPassword']);
-Route::get('/general/stock', [GeneralController::class, 'stock']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/auth/logout', [AuthController::class, 'logout']);
@@ -39,5 +39,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::resource('modules', ModuleController::class);
 
     Route::post('/general/flush', [GeneralController::class, 'flush']);
-    
+
 });
+Route::get('/select-regular', [SelectController::class, 'regular']);
+Route::get('/select-auto/{item}', [SelectController::class, 'auto']);
+Route::post('/select-auto/{item}', [SelectController::class, 'auto']);

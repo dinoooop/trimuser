@@ -23,4 +23,22 @@ export class fm {
     }
   }
 
+  static findItemById(id, haystack) {
+    return haystack.find(item => item.id === id);
+  }
+
+
+  static toggleArrayItem(id, haystack) {
+    const index = haystack.findIndex(item => item === id)
+    if (index !== -1) {
+      return haystack.filter(item => item !== id)
+    } else {
+      return [...haystack, id];
+    }
+  }
+
+  static inArray(needle, haystack) {
+    return haystack.some(item => item === needle);
+  }
+
 }

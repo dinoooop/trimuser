@@ -24,7 +24,6 @@ export default function ({ name, formValues, errors, onChangeForm, type = null, 
                 value={value}
                 name={name}
                 onChange={onChangeForm}
-                data-custom="xxx"
             />
             <div className="color-red">{error}</div>
         </div>

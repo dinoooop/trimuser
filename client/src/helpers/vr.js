@@ -7,7 +7,17 @@ export class vr {
 
 		
 
-		const { name, value, type, checked, files, options, multiple } = e.target;
+		const { name, value, type, checked, files, options, multiple, dataset } = e.target;
+
+		if(dataset.customField == "multi-select"){
+			const {customValues, customName} = dataset;
+			const customValuesArray = customValues.split(',').map(Number)
+			
+			return {
+				formValues: { [customName]: customValuesArray },
+				error: { [customName]: validateForm(customName, customValuesArray) }
+			}
+		}
 		
 		if (type == "select" && multiple) {
 			// Handle multi-select change
